@@ -1,0 +1,86 @@
+<head>
+  <script src='https://meet.jit.si/external_api.js'></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style type="text/css">
+      body{
+        background-image: url("https://wallpaperaccess.com/full/4012588.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: whitesmoke;
+      }
+      #start{
+        width: 225px;
+        height: 40px;
+        font-size: 20px;
+        font-style: oblique ;
+        border-radius: 17px;
+        background-color: darkslategray;
+        color: lightsteelblue;
+      }
+      #start:hover{
+        background-color: dodgerblue;
+        color: whitesmoke;
+        cursor: pointer;
+      }
+
+      #end{
+        width: 300px;
+        height: 40px;
+        font-size: 20px;
+        font-style: oblique ;
+        border-radius: 17px;
+        background-color: darkslategray;
+        color: lightsteelblue;
+      }
+      #end:hover{
+        background-color: dodgerblue;
+        color: whitesmoke;
+        cursor: pointer;
+      }
+  </style>
+
+<script type="text/javascript">
+    function confirm_end() {
+        var r = confirm("Are you sure to leave this meeting.");
+        if (r==true) { alert("Meet Ended."); location.reload(); }
+        else { alert("Alright, continue with this meeting"); }
+    }
+</script>
+</head>
+<body>
+<center>
+<button id="start" type="button"><strong> <i class="fa fa-laptop" aria-hidden="true"></i> Start a Meeting</strong></button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<button id="end" type="button" onclick="confirm_end()" ><strong> <i class="fa fa-laptop" aria-hidden="true"></i> End this Meeting for Me.</strong></button>
+</center>
+<br>
+<div id="jitsi-container">
+</div>
+
+<script>
+var button = document.querySelector('#start');
+var container = document.querySelector('#jitsi-container');
+var api = null;
+
+button.addEventListener('click', () => {
+    var possible = 'abcdefghijklmnopqrstuvwxyz';
+    var stringLength = 5;
+
+    function pickRandom() {
+    return possible[Math.floor(Math.random() * possible.length)];
+    }
+
+var randomString = Array.apply(null, Array(stringLength)).map(pickRandom).join('');
+
+    var domain = "meet.jit.si";
+    var options = {
+        "roomName": randomString,
+        "parentNode": container,
+        "width": 1520,
+        "height": 685,
+    };
+    api = new JitsiMeetExternalAPI(domain, options);
+});
+
+</script>
+</body>
+</html>
